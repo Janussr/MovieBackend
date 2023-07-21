@@ -1,8 +1,8 @@
 using AutoMapper;
-using CodeFirstProject.DbConnector;
-using CodeFirstProject.DTOs;
-using CodeFirstProject.Models;
-using CodeFirstProject.Services;
+using MovieBackend.DbConnector;
+using MovieBackend.DTOs;
+using MovieBackend.Models;
+using MovieBackend.Services;
 using Microsoft.EntityFrameworkCore;
 
 var policyName = "AllowOrigin";
@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 var mapperConfig = new MapperConfiguration(config =>
 {
     config.CreateMap<User, UserDTO>().ReverseMap();
+    config.CreateMap<Movie, MovieDTO>().ReverseMap();
     // Add more mappings as needed
 });
 builder.Services.AddScoped<IMapper>(sp => mapperConfig.CreateMapper());
@@ -47,6 +48,7 @@ builder.Services.AddDbContext<UserContext>(options => options.UseSqlServer(build
 // By adding the builder.Services.AddScoped<UserService>() line, you are instructing the dependency injection container to
 // create a new instance of UserService per HTTP request and make it available for injection wherever it is needed.
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<MovieService>();
 
 
 var app = builder.Build();

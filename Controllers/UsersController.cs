@@ -1,12 +1,12 @@
-﻿using CodeFirstProject.DbConnector;
-using CodeFirstProject.DTOs;
-using CodeFirstProject.Models;
-using CodeFirstProject.Services;
+﻿using MovieBackend.DbConnector;
+using MovieBackend.DTOs;
+using MovieBackend.Models;
+using MovieBackend.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace CodeFirstProject.Controllers
+namespace MovieBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

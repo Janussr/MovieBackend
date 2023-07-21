@@ -1,8 +1,8 @@
-﻿using CodeFirstProject.DTOs;
-using CodeFirstProject.Models;
+﻿using MovieBackend.DTOs;
+using MovieBackend.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CodeFirstProject.DbConnector
+namespace MovieBackend.DbConnector
 {
     public class UserContext : DbContext
     {
@@ -12,6 +12,6 @@ namespace CodeFirstProject.DbConnector
         }
 
         public DbSet<User> Users { get; set; }
-
+        public DbSet<Movie> Movies { get; set; }
     }
 }

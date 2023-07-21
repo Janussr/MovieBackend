@@ -1,4 +1,4 @@
-﻿namespace CodeFirstProject.DTOs
+﻿namespace MovieBackend.DTOs
 {
     public class UserDTO
     {

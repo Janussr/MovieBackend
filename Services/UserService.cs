@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using CodeFirstProject.DbConnector;
-using CodeFirstProject.DTOs;
-using CodeFirstProject.Models;
+using MovieBackend.DbConnector;
+using MovieBackend.DTOs;
+using MovieBackend.Models;
 
-namespace CodeFirstProject.Services
+namespace MovieBackend.Services
 {
     public class UserService
     {
