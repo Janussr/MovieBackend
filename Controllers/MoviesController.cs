@@ -22,11 +22,30 @@ namespace MovieBackend.Controllers
 
         [HttpGet]
         [Route("GetMovies")]
-        public IActionResult Get()
+        public IActionResult GetAllMovies()
         {
             var movies = _movieService.GetAllMovies();
             return Ok(movies);
         }
+
+
+        [HttpGet]
+        [Route("SortMovieByYearASC")]
+        public IActionResult SortMovieByYearASC()
+        {
+            var movies = _movieService.GetAllMoviesOrderedByYearASC();
+            return Ok(movies);
+        }
+
+        [HttpGet]
+        [Route("SortMovieByDESC")]
+        public IActionResult SortMovieByYearDESC()
+        {
+            var movies = _movieService.GetAllMoviesOrderedByYearDESC();
+            return Ok(movies);
+        }
+
+
 
     }
 }
