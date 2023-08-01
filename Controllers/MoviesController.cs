@@ -36,7 +36,7 @@ namespace MovieBackend.Controllers
             var movies = _movieService.GetAllMoviesOrderedByYearASC();
             return Ok(movies);
         }
-
+     
         [HttpGet]
         [Route("SortMovieByDESC")]
         public IActionResult SortMovieByYearDESC()
