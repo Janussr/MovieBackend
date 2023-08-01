@@ -24,9 +24,6 @@ namespace MovieBackend.Services
         {
             var movies = _context.Movies.ToList();
             var movieDTO = _mapper.Map<List<MovieDTO>>(movies);
-
-           
-
             return movieDTO;
         }
 
@@ -43,5 +40,52 @@ namespace MovieBackend.Services
            var movieDTOs = _mapper.Map<List<MovieDTO>>(movies);
            return movieDTOs;
        }
+
+
+
+        // Method to add a movie to the user's cart
+     //   public void AddMovieToCart(int userId, int movieId)
+     //   {
+     //       // Check if the user already has the movie in their cart
+     //       var existingCartItem = _context.CartItems.FirstOrDefault(c => c.UserId == userId && c.MovieId == movieId);
+     //
+     //       if (existingCartItem != null)
+     //       {
+     //           // If the movie is already in the cart, increase the quantity
+     //           existingCartItem.Quantity++;
+     //       }
+     //       else
+     //       {
+     //           // If the movie is not in the cart, create a new cart item
+     //           var cartItem = new CartItems
+     //           {
+     //               UserId = userId,
+     //               MovieId = movieId,
+     //               Quantity = 1 // Set the initial quantity to 1
+     //           };
+     //
+     //           _context.CartItems.Add(cartItem);
+     //       }
+     //
+     //       _context.SaveChanges();
+     //   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

@@ -16,6 +16,10 @@ var mapperConfig = new MapperConfiguration(config =>
 {
     config.CreateMap<User, UserDTO>().ReverseMap();
     config.CreateMap<Movie, MovieDTO>().ReverseMap();
+    config.CreateMap<Cart, CartDTO>().ReverseMap();
+    config.CreateMap<CartItem, CartItemDTO>().ReverseMap();
+    config.CreateMap<Order, OrderDTO>().ReverseMap();
+    config.CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
     // Add more mappings as needed
 });
 builder.Services.AddScoped<IMapper>(sp => mapperConfig.CreateMapper());
