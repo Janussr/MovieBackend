@@ -46,6 +46,25 @@ namespace MovieBackend.Controllers
         }
 
 
+        [HttpPost]
+        [Route("AddToCart")]
+        public IActionResult AddToCart(int userId, int movieId, int quantity)
+        {
+            try
+            {
+                _movieService.AddToCart(userId, movieId, quantity);
+                return Ok("Movie successfully added to cart.");
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+            }
+        }
+
+
+
+
+
 
     }
 }

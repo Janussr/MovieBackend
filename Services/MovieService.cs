@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MovieBackend.DbConnector;
 using MovieBackend.DTOs;
+using MovieBackend.Models;
 
 namespace MovieBackend.Services
 {
@@ -43,33 +45,78 @@ namespace MovieBackend.Services
 
 
 
-        // Method to add a movie to the user's cart
-     //   public void AddMovieToCart(int userId, int movieId)
-     //   {
-     //       // Check if the user already has the movie in their cart
-     //       var existingCartItem = _context.CartItems.FirstOrDefault(c => c.UserId == userId && c.MovieId == movieId);
-     //
-     //       if (existingCartItem != null)
-     //       {
-     //           // If the movie is already in the cart, increase the quantity
-     //           existingCartItem.Quantity++;
-     //       }
-     //       else
-     //       {
-     //           // If the movie is not in the cart, create a new cart item
-     //           var cartItem = new CartItems
-     //           {
-     //               UserId = userId,
-     //               MovieId = movieId,
-     //               Quantity = 1 // Set the initial quantity to 1
-     //           };
-     //
-     //           _context.CartItems.Add(cartItem);
-     //       }
-     //
-     //       _context.SaveChanges();
-     //   }
+        public void AddToCart(int userId, int movieId, int quantity)
+        {
+            // Retrieve the user's cart from the database using DTOs
+            var cartDTO = _context.Carts.Include(c => c.CartItems)
+                                        .Where(c => c.UserId == userId)
+                                        .Select(c => new CartDTO
+                                        {
+                                            CartId = c.CartId,
+                                            UserId = c.UserId,
+                                            CartItems = c.CartItems.Select(ci => new CartItemDTO
+                                            {
+                                                CartItemId = ci.CartItemId,
+                                                CartId = ci.CartId,
+                                                MovieId = ci.MovieId,
+                                                Quantity = ci.Quantity
+                                            }).ToList()
+                                        })
+                                        .FirstOrDefault();
 
+            // If the user doesn't have a cart, create a new one
+            if (cartDTO == null)
+            {
+                cartDTO = new CartDTO
+                {
+                    UserId = userId,
+                    CartItems = new List<CartItemDTO>()
+                };
+            }
+
+            // Check if the movie is already in the cart
+            var cartItemDTO = cartDTO.CartItems.FirstOrDefault(ci => ci.MovieId == movieId);
+
+            if (cartItemDTO != null)
+            {
+                // Update the quantity if the movie is already in the cart
+                cartItemDTO.Quantity += quantity;
+            }
+            else
+            {
+                // Create a new cart item if the movie is not in the cart
+                cartItemDTO = new CartItemDTO
+                {
+                    CartId = cartDTO.CartId,
+                    MovieId = movieId,
+                    Quantity = quantity
+                };
+                cartDTO.CartItems.Add(cartItemDTO);
+            }
+
+            // Convert the DTOs back to entities and save the changes to the database
+            var cart = new Cart
+            {
+                CartId = cartDTO.CartId,
+                UserId = cartDTO.UserId,
+                CartItems = cartDTO.CartItems.Select(ci => new CartItem
+                {
+                    CartItemId = ci.CartItemId,
+                    CartId = ci.CartId,
+                    MovieId = ci.MovieId,
+                    Quantity = ci.Quantity
+                }).ToList()
+            };
+
+            // If the user doesn't have a cart, add the new cart to the database
+            if (_context.Carts.FirstOrDefault(c => c.UserId == userId) == null)
+            {
+                _context.Carts.Add(cart);
+            }
+
+            // Save the changes to the database
+            _context.SaveChanges();
+        }
 
 
 
