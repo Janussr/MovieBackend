@@ -29,7 +29,19 @@ namespace MovieBackend.Services
             return movieDTO;
         }
 
-       public List<MovieDTO> GetAllMoviesOrderedByYearASC()
+        public List<MovieDTO> GetMoviesByPage(int pageNumber, int moviesPerPage)
+        {
+            var skipAmount = (pageNumber - 1) * moviesPerPage;
+            var movies = _context.Movies
+                                 .Skip(skipAmount)
+                                 .Take(moviesPerPage)
+                                 .ToList();
+
+            var movieDTO = _mapper.Map<List<MovieDTO>>(movies);
+            return movieDTO;
+        }
+
+        public List<MovieDTO> GetAllMoviesOrderedByYearASC()
        {
            var movies = _context.Movies.OrderBy(movie => movie.ReleaseYear).ToList();
            var movieDTOs = _mapper.Map<List<MovieDTO>>(movies);

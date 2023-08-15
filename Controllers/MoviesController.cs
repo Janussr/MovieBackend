@@ -28,6 +28,15 @@ namespace MovieBackend.Controllers
             return Ok(movies);
         }
 
+        [HttpGet]
+        [Route("GetMoviesByPage")]
+        public IActionResult GetMoviesByPage(int pageNumber, int moviesPerPage)
+        {
+            var movies = _movieService.GetMoviesByPage(pageNumber, moviesPerPage);
+            return Ok(movies);
+        }
+
+
 
         [HttpGet]
         [Route("SortMovieByYearASC")]
