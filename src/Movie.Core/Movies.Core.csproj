@@ -29,8 +29,4 @@
     <ProjectReference Include="..\Movie.Repository\Movies.Repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Interfaces\" />
-  </ItemGroup>
-
 </Project>

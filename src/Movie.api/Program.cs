@@ -30,7 +30,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IMovieService, MovieService>();
-//builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -50,7 +50,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseCors(policyName);
 }
-app.UseCors(policyName);
 
 app.UseHttpsRedirection();
 
