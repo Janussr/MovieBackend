@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movie.Api", "src\Movie.api\Movie.Api.csproj", "{3560436C-3FA3-428F-9ECD-D88F7181B282}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Api", "src\Movie.api\Movies.Api.csproj", "{3560436C-3FA3-428F-9ECD-D88F7181B282}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movie.Core", "src\Movie.Core\Movie.Core.csproj", "{8C43F55D-E58B-44F9-AFC8-44FCA90DE69A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Core", "src\Movie.Core\Movies.Core.csproj", "{8C43F55D-E58B-44F9-AFC8-44FCA90DE69A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movie.Repository", "src\Movie.Repository\Movie.Repository.csproj", "{C5A30857-0506-4DF8-91F0-044E4808C0E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Repository", "src\Movie.Repository\Movies.Repository.csproj", "{C5A30857-0506-4DF8-91F0-044E4808C0E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

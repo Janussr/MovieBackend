@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Movie.Api;
+namespace Movies.Repository.Entities;
+
 
 public partial class CartItem
 {
@@ -15,5 +16,5 @@ public partial class CartItem
 
     public virtual Cart Cart { get; set; } = null!;
 
-    public virtual Movie Movie { get; set; } = null!;
+    public virtual MovieEntity Movie { get; set; } = null!;
 }

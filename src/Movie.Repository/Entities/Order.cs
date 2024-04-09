@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Movie.Api;
+namespace Movies.Repository.Entities;
+
 
 public partial class Order
 {

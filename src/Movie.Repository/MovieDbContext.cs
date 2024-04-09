@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Movies.Repository.Entities;
 
 namespace Movie.Api;
 
@@ -19,7 +20,7 @@ public partial class MovieDbContext : DbContext
 
     public virtual DbSet<CartItem> CartItems { get; set; }
 
-    public virtual DbSet<Movie> Movies { get; set; }
+    public virtual DbSet<MovieEntity> Movies { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
 
@@ -50,7 +51,7 @@ public partial class MovieDbContext : DbContext
             entity.HasOne(d => d.Movie).WithMany(p => p.CartItems).HasForeignKey(d => d.MovieId);
         });
 
-        modelBuilder.Entity<Movie>(entity =>
+        modelBuilder.Entity<MovieEntity>(entity =>
         {
             entity.Property(e => e.Actors).HasMaxLength(255);
             entity.Property(e => e.Directors).HasMaxLength(255);

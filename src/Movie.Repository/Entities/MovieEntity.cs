@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Movie.Api;
+namespace Movies.Repository.Entities;
 
-public partial class Movie
+
+public partial class MovieEntity
 {
     public int Id { get; set; }
 

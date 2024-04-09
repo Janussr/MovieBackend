@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Movie.Api;
+namespace Movies.Repository.Entities;
+
 
 public partial class OrderItem
 {
@@ -13,7 +14,7 @@ public partial class OrderItem
 
     public int Quantity { get; set; }
 
-    public virtual Movie Movie { get; set; } = null!;
+    public virtual MovieEntity Movie { get; set; } = null!;
 
     public virtual Order Order { get; set; } = null!;
 }
