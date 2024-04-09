@@ -3,6 +3,8 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+
+
 # dotenv files
 .env
 
@@ -34,6 +36,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+/LogFiles/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -482,3 +485,4 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/src/Movie.api/LogFiles

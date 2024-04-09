@@ -1,10 +1,18 @@
-using Microsoft.AspNetCore.Authentication;
 using Movies.Core.Services.Interfaces;
 using Movies.Core.Services;
 using Microsoft.EntityFrameworkCore;
 using Movie.Api;
+using NLog;
+using NLog.Web;
 
-var builder = WebApplication.CreateBuilder(args);
+// Early init of NLog to allow startup and exception logging, before host is built
+var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+logger.Debug("init main");
+
+try
+{
+
+    var builder = WebApplication.CreateBuilder(args);
 const string policyName = "AllowOrigin";
 
 
@@ -58,3 +66,17 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+}
+catch (Exception exception)
+{
+    // NLog: catch setup errors
+    logger.Error(exception, "Stopped program because of exception");
+    throw;
+}
+finally
+{
+    // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+    NLog.LogManager.Shutdown();
+}
