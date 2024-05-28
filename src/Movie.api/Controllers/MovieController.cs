@@ -15,7 +15,9 @@ namespace Movies.Api.Controllers
         {
             _movieService = movieService;
             _logger = logger;
-            _logger.LogDebug(1, "NLog injected into HomeController");
+            _logger.LogDebug( "NLog injected into HomeController");
+            _logger.LogInformation( "NLog Successful request");
+
         }
 
 
@@ -23,10 +25,12 @@ namespace Movies.Api.Controllers
         public async Task<IActionResult> GetMovies()
         {
             var movies = await _movieService.GetMovies();
-            _logger.LogInformation("Hello this is logging");
+            _logger.LogInformation( "log info");
+            _logger.LogInformation( "log info");
             return Ok(movies);
+
         }
-
-
     }
+
+
 }

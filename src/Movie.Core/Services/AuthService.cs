@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Movie.Api;
 using Movies.Core.Dto;
 using Movies.Repository.Entities;
@@ -6,28 +7,22 @@ using Movies.Core.Services.Interfaces;
 
 namespace Movies.Core.Services;
 
-    public class AuthService : IAuthService
+    public class AuthService(IMapper mapper, MovieDbContext context, ILogger<AuthService> logger) : IAuthService
     {
-        private readonly IMapper _mapper;
-        private readonly MovieDbContext _context;
 
-        public AuthService(IMapper mapper, MovieDbContext context)
+    public async Task<UserDto> RegisterUser(RegisterDto dto)
         {
-            _mapper = mapper;
-            _context = context;
-        }
-
-
-        public async Task<UserDto> RegisterUser(RegisterDto dto)
-        {
-            var user = _mapper.Map<User>(dto);
+            var user = mapper.Map<User>(dto);
             user.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
-            await _context.AddAsync(user);
-            await _context.SaveChangesAsync();
+            await context.AddAsync(user);
+            await context.SaveChangesAsync();
 
-            var userDto = _mapper.Map<UserDto>(user);
-
+            var userDto = mapper.Map<UserDto>(user);
+            logger.LogInformation(2,"Log Info create user");
+            logger.LogInformation(3,"Log Info create user");
+            logger.LogInformation(4,"Log Info create user");
+            logger.LogInformation(5,"Log Info create user");
             return userDto;
 
         }
