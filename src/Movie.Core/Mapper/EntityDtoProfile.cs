@@ -9,6 +9,7 @@ public class EntityDtoProfile : Profile
     public EntityDtoProfile()
     {
         CreateMap<MovieEntity, MovieDto>();
+        CreateMap<MovieDto, MovieEntity>();
 
         CreateMap<CreateMovieDto, MovieEntity>();
         CreateMap<MovieEntity, CreateMovieDto>();

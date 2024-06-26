@@ -60,16 +60,64 @@ public class MovieService(IMapper mapper, MovieDbContext context, ILogger<MovieS
     {
         try
         {
-            var movie = await _context.Movies.SingleOrDefaultAsync(m => m.Id == id); 
+            var movie = await _context.Movies.SingleOrDefaultAsync(m => m.Id == id);
             return _mapper.Map<MovieDto>(movie);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "An error occurred while getting the movie with ID: {MovieId}", id);
-            throw; 
+            throw;
+        }
+    }
+
+
+    public async Task<bool> UpdateMovie(MovieDto movieDto)
+    {
+        try
+        {
+            // Retrieve the existing movie from the database
+            var existingMovie = await _context.Movies.FindAsync(movieDto.Id);
+            if (existingMovie == null)
+            {
+                return false; 
+            }
+
+            // Update the movie's properties with the values from the DTO
+            _mapper.Map(movieDto, existingMovie);
+
+            // Save the changes to the database
+            await _context.SaveChangesAsync();
+
+            return true; // Update successful
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while updating the movie with ID: {MovieId}", movieDto.Id);
+            return false; // Update failed
         }
     }
 
 
 
+    public async Task<bool> DeleteMovie(int id)
+    {
+        try
+        {
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie != null)
+            {
+                _context.Movies.Remove(movie);
+                await _context.SaveChangesAsync();
+                return true; // Deletion successful
+            }
+            return false; // Movie not found
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while deleting the movie with ID: {MovieId}", id);
+            return false; // Deletion failed
+        }
+    }
+
 }
+
