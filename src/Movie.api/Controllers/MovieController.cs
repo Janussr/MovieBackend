@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Movies.Core.Dto;
 using Movies.Core.Services.Interfaces;
-using Microsoft.Extensions.Logging;
+using Movies.Repository.Entities;
 
 namespace Movies.Api.Controllers
 {
@@ -15,22 +16,39 @@ namespace Movies.Api.Controllers
         {
             _movieService = movieService;
             _logger = logger;
-            _logger.LogDebug( "NLog injected into HomeController");
-            _logger.LogInformation( "NLog Successful request");
+            _logger.LogDebug("NLog injected into HomeController");
+            _logger.LogInformation("NLog Successful request");
 
         }
 
+        [HttpPost]
+        public async Task<ActionResult<CreateMovieDto>> CreateMovie(CreateMovieDto movie)
+        {
+            var result = await _movieService.CreateMovie(movie);
+            _logger.LogInformation($"Created movie: {result}");
+            return Ok(result);
+        }
 
-        [HttpGet]
+
+        [HttpGet("/api/Movie/all")]
         public async Task<IActionResult> GetMovies()
         {
             var movies = await _movieService.GetMovies();
-            _logger.LogInformation( "log info");
-            _logger.LogInformation( "log info");
+            _logger.LogInformation($"{nameof(GetMovies)}");
             return Ok(movies);
 
         }
-    }
 
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetMovieById(int id)
+        {
+            var result = await _movieService.GetMovieById(id);
+            _logger.LogInformation($"Movie {id} {result}");
+            return Ok(result);
+        }
+
+
+
+    }
 
 }

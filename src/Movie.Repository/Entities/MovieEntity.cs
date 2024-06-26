@@ -4,7 +4,8 @@ using System.Collections.Generic;
 namespace Movies.Repository.Entities;
 
 
-public partial class MovieEntity
+
+public partial class MovieEntity //I had to name the entity "MovieEntity" as the project is named "Movie" which complicated also having this entity be named "Movie"
 {
     public int Id { get; set; }
 

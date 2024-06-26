@@ -8,25 +8,41 @@ using Movies.Repository.Entities;
 
 namespace Movies.Core.Services;
 
-public class MovieService : IMovieService
+public class MovieService(IMapper mapper, MovieDbContext context, ILogger<MovieService> logger) : IMovieService
 {
-    private readonly IMapper _mapper;
-    private readonly MovieDbContext _context;
-    private readonly ILogger<MovieService> _logger;
+    private readonly IMapper _mapper = mapper;
+    private readonly MovieDbContext _context = context;
+    private readonly ILogger<MovieService> _logger = logger;
 
-    public MovieService(IMapper mapper, MovieDbContext context, ILogger<MovieService> logger)
+    public async Task<CreateMovieDto> CreateMovie(CreateMovieDto movieDto)
     {
-        _mapper = mapper;
-        _context = context;
-        _logger = logger;
+        try
+        {
+            // Map the DTO to the Movie entity
+            var movie = _mapper.Map<MovieEntity>(movieDto);
+
+            // Add the new movie to the context
+            _context.Movies.Add(movie);
+
+            // Save the changes to the database
+            await _context.SaveChangesAsync();
+
+            // Map the Movie entity back to the DTO
+            return _mapper.Map<CreateMovieDto>(movie);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while creating a new movie.");
+            throw;
+        }
     }
+
 
     public async Task<List<MovieDto>> GetMovies()
     {
         List<MovieEntity> movies;
         try
         {
-            _logger.LogInformation("Attempting to retrieve movies.");
             movies = await _context.Movies.ToListAsync();
             _logger.LogInformation($"Retrieved {movies.Count} movies successfully.");
         }
@@ -40,7 +56,7 @@ public class MovieService : IMovieService
 
 
 
-    public async Task<MovieDto> GetById(int id)
+    public async Task<MovieDto> GetMovieById(int id)
     {
         try
         {
