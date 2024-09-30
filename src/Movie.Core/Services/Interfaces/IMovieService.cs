@@ -13,4 +13,6 @@ public interface IMovieService
     Task<bool> UpdateMovie(MovieDto movieDto);
 
     Task<bool> DeleteMovie(int id);
+
+   
 }

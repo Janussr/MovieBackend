@@ -51,7 +51,7 @@ namespace Movies.Api.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateMovie(int id, [FromBody] MovieDto movieDto)
         {
-            if ( movieDto.Id != id)
+            if (movieDto.Id != id)
             {
                 return BadRequest("Movie ID mismatch or movie data is null");
             }
@@ -74,12 +74,12 @@ namespace Movies.Api.Controllers
             {
                 return NotFound(); // Return 404 if the movie was not found or deletion failed
             }
-            return Ok("Movie Deleted"); 
+            return Ok("Movie Deleted");
             // return NoContent(); Return 204 No Content if the deletion was successful
         }
 
 
-
+        
 
 
     }
