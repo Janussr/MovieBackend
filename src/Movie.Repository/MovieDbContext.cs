@@ -53,14 +53,14 @@ public partial class MovieDbContext : DbContext
 
         modelBuilder.Entity<MovieEntity>(entity =>
         {
-            entity.Property(e => e.Actors).HasMaxLength(255);
-            entity.Property(e => e.Directors).HasMaxLength(255);
-            entity.Property(e => e.Genre).HasMaxLength(255);
-            entity.Property(e => e.LifetimeGrossInUsd)
-                .HasColumnType("decimal(18, 2)")
-                .HasColumnName("LifetimeGrossInUSD");
-            entity.Property(e => e.Publishers).HasMaxLength(255);
-            entity.Property(e => e.Runtime).HasMaxLength(255);
+            //entity.Property(e => e.Actors).HasMaxLength(255);
+            //entity.Property(e => e.Directors).HasMaxLength(255);
+            //entity.Property(e => e.Genre).HasMaxLength(255);
+            //entity.Property(e => e.LifetimeGrossInUsd)
+            //    .HasColumnType("decimal(18, 2)")
+            //    .HasColumnName("LifetimeGrossInUSD");
+            //entity.Property(e => e.Publishers).HasMaxLength(255);
+            //entity.Property(e => e.Runtime).HasMaxLength(255);
             entity.Property(e => e.Title).HasMaxLength(255);
         });
 

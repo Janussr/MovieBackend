@@ -23,7 +23,7 @@ namespace Movies.Api.Controllers
 
 
 
-        [HttpPost("/api/movie/AddMovieToCart")]
+        [HttpPost("/api/cart/AddMovieToCart")]
         public async Task<IActionResult> AddMovieToCart(int movieId, int userId, int quantity = 1)
         {
             var result = await _cartService.AddMovieToCart(movieId, userId, quantity);
@@ -34,7 +34,7 @@ namespace Movies.Api.Controllers
             return Ok("movie added to cart");
         }
 
-        [HttpPost("/api/movie/PurchaseCartItems")]
+        [HttpPost("/api/cart/PurchaseCartItems")]
         public async Task<IActionResult> PurchaseCartItems(int userId)
         {
             try

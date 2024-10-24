@@ -9,6 +9,7 @@ public class MovieDto
     public string? Title { get; set; }
 
     public int? ReleaseYear { get; set; }
+    public string? Certificate { get; set; }
 
     public string? Runtime { get; set; }
 
@@ -24,7 +25,7 @@ public class MovieDto
 
     public decimal? LifetimeGrossInUsd { get; set; }
 
-    public string? Reviews { get; set; }
+    //public string? Reviews { get; set; } //Disabled because reviews makes the get request slower
 
     public string? ReviewScore { get; set; }
 

@@ -15,11 +15,13 @@ public partial class MovieEntity //I had to name the entity "MovieEntity" as the
 
     public int? ReleaseYear { get; set; }
 
+    public string? Certificate { get; set; }
+
     public string? Runtime { get; set; }
 
     public string? Genre { get; set; }
 
-    public float? Rating { get; set; }
+    public int? Rating { get; set; }
 
     public string? Summary { get; set; }
 
@@ -37,11 +39,11 @@ public partial class MovieEntity //I had to name the entity "MovieEntity" as the
 
     public string? Publishers { get; set; }
 
-    public float? Page { get; set; }
+    public int? Page { get; set; }
 
     public string? Poster { get; set; }
 
-    public float? Price { get; set; }
+    public int? Price { get; set; }
 
     public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 

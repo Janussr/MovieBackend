@@ -13,19 +13,19 @@ try
 {
 
     var builder = WebApplication.CreateBuilder(args);
-const string policyName = "AllowOrigin";
+    const string policyName = "AllowOrigin";
 
 
-// Add services to the container.
+    // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+    builder.Services.AddControllers();
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
-// NLog: Setup NLog for Dependency injection
-builder.Logging.ClearProviders();
-builder.Host.UseNLog();
+    // NLog: Setup NLog for Dependency injection
+    builder.Logging.ClearProviders();
+    builder.Host.UseNLog();
 
     builder.Services.AddCors(options =>
 {
@@ -39,36 +39,36 @@ builder.Host.UseNLog();
         });
 });
 
-builder.Services.AddScoped<IMovieService, MovieService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ICartService, CartService>();
+    builder.Services.AddScoped<IMovieService, MovieService>();
+    builder.Services.AddScoped<IAuthService, AuthService>();
+    builder.Services.AddScoped<ICartService, CartService>();
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-//Database context
-builder.Services.AddDbContext<MovieDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DbContext"));
-});
+    //Database context
+    builder.Services.AddDbContext<MovieDbContext>(options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DbContext"));
+    });
 
 
-var app = builder.Build();
+    var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseCors(policyName);
-}
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+        app.UseCors(policyName);
+    }
 
-app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 
-app.UseAuthorization();
+    app.UseAuthorization();
 
-app.MapControllers();
+    app.MapControllers();
 
-app.Run();
+    app.Run();
 
 
 }

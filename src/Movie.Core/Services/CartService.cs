@@ -131,5 +131,28 @@ namespace Movies.Core.Services
             }
         }
 
+
+        // :TODO Needs testing
+        public async Task<bool> RemoveItemFromCart(int id)
+        {
+            try
+            {
+                var cart = await _context.CartItems.FindAsync(id);
+                if (cart != null)
+                {
+                    _context.CartItems.Remove(cart);
+                    await _context.SaveChangesAsync();
+                    return true; // Deletion successful
+                }
+                return false; // Movie not found
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while deleting the movie with ID: {MovieId}", id);
+                return false; // Deletion failed
+            }
+        }
+
+
     }
 }
