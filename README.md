@@ -1,2 +1,2 @@
 # MovieBackend
-A hobby project made for practice
+A project made for fun
