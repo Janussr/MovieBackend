@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Movie.Api;
+using Movies.Core.Dto;
 using Movies.Core.Services.Interfaces;
 using Movies.Repository.Entities;
 
@@ -152,6 +153,56 @@ namespace Movies.Core.Services
                 return false; // Deletion failed
             }
         }
+
+        public async Task<List<MovieDto>> DisplayCartItems(int userId)
+        {
+            try
+            {
+                //Retrieve the cart for the specified user
+                var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == userId);
+
+                if (cart == null)
+                {
+                    _logger.LogWarning($"No cart found for user with ID {userId}.");
+                    return new List<MovieDto>(); 
+                }
+
+                //Retrieve the cart items for this cart ID
+                var cartItems = await _context.CartItems
+                    .Where(ci => ci.CartId == cart.CartId)
+                    .ToListAsync();
+
+                if (cartItems.Count == 0)
+                {
+                    _logger.LogInformation($"Cart for user ID {userId} is empty.");
+                    return new List<MovieDto>();
+                }
+
+                //Fetch movies and map them to MovieDto
+                var movieIds = cartItems.Select(ci => ci.MovieId).Distinct().ToList();
+                var movies = await _context.Movies
+                    .Where(m => movieIds.Contains(m.Id))
+                    .ToListAsync();
+
+                // Map movies to DTOs, including quantity from cart items
+                var movieDtos = movies.Select(movie =>
+                {
+                    var cartItem = cartItems.First(ci => ci.MovieId == movie.Id);
+                    var movieDto = _mapper.Map<MovieDto>(movie);
+                    movieDto.Quantity = cartItem.Quantity; 
+                    return movieDto;
+                }).ToList();
+
+                _logger.LogInformation($"Retrieved {movieDtos} movies successfully for user ID {userId}.");
+                return movieDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"An error occurred while retrieving the cart items for user ID {userId}.");
+                throw;
+            }
+        }
+
 
 
     }

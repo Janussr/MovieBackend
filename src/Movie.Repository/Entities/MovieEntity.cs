@@ -21,7 +21,7 @@ public partial class MovieEntity //I had to name the entity "MovieEntity" as the
 
     public string? Genre { get; set; }
 
-    public int? Rating { get; set; }
+    public double? Rating { get; set; }
 
     public string? Summary { get; set; }
 
