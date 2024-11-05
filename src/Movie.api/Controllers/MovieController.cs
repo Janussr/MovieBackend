@@ -30,7 +30,7 @@ namespace Movies.Api.Controllers
         }
 
 
-        [HttpGet("/api/Movie/all")]
+        [HttpGet("/api/Movie/All")]
         public async Task<IActionResult> GetMovies()
         {
             var movies = await _movieService.GetMovies();
